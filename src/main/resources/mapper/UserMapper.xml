@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icode20.runningeating.api.mapper.mapperext.UserMapper">
+    <update id="update">
+        update running_eating.user
+        <set>
+            <if test="username!=null">username=#{username},</if>
+            <if test="phoneNumber!=null">phonenumber=#{phoneNumber},</if>
+            <if test="email!=null">email=#{email},</if>
+            <if test="addr!=null">addr=#{addr},</if>
+            <if test="nickname!=null">nickname=#{nickname},</if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="delete">
+        delete
+        from running_eating.user
+        where id = #{id}
+    </delete>
+
+    <!--    用户表结果集映射-->
+    <resultMap id="DbUser" type="User">
+        <result column="m_password" property="password"/>
+        <result column="m_index" property="index"/>
+        <result column="phonenumber" property="phoneNumber"/>
+    </resultMap>
+    <select id="getAll" resultType="User" resultMap="DbUser">
+        select *
+        from running_eating.user;
+    </select>
+
+    <select id="getLimit" resultType="User" resultMap="DbUser">
+        select *
+        from running_eating.user
+        limit #{startIndex},#{limit}
+    </select>
+
+    <select id="searchById" resultType="User" resultMap="DbUser">
+        select *
+        from running_eating.user
+        where id = #{id}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*)
+        from running_eating.User
+    </select>
+
+    <select id="bluerCount" resultType="java.lang.Integer">
+        select count(*)
+        from running_eating.user
+        where user.username like concat('%', #{bluer}, '%')
+    </select>
+    <select id="searchByKeys" resultType="User" resultMap="DbUser">
+        select *
+        from running_eating.user
+        where username like concat('%', #{buler}, '%')
+    </select>
+
+
+</mapper>

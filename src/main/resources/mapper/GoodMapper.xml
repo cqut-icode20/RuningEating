@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icode20.runningeating.api.mapper.mapperext.GoodMapper">
+    <update id="update">
+        update running_eating.good
+        <set>
+            <if test="name!=null">name=#{name},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="category!=null">category=#{category},</if>
+            <if test="addTime!=null">addTime=#{addTime},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="imageName!=null">imageName=#{imageName},</if>
+            <if test="sales!=null">sales=#{sales},</if>
+            <if test="stock!=null">stock=#{stock},</if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="delete">
+        delete
+        from running_eating.good
+        where id = #{id}
+    </delete>
+    <!--    用户表结果集映射-->
+    <select id="getAll" resultType="Good">
+        select *
+        from running_eating.good;
+    </select>
+
+    <select id="getLimit" resultType="Good">
+        select *
+        from running_eating.good
+        limit #{startIndex},#{limit}
+    </select>
+
+    <select id="searchByKeys" resultType="Good">
+        select *
+        from running_eating.good
+        where good.description like concat('%', #{bluer}, '%')
+           or good.name like concat('%', #{bluer}, '%')
+        limit #{startIndex},#{limit}
+    </select>
+
+    <select id="searchById" resultType="Good">
+        select *
+        from running_eating.good
+        where running_eating.good.id = #{id}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*)
+        from running_eating.good
+    </select>
+
+    <select id="bluerCount" resultType="java.lang.Integer">
+        select count(*)
+        from running_eating.good
+        where description like concat('%', #{bluer}, '%')
+           or good.name like concat('%', #{bluer}, '%')
+    </select>
+
+    <insert id="add">
+        insert into running_eating.good(good.id, good.name, good.addTime, good.imageName, good.category,
+                                        good.description, good.price, good.sales, good.stock)
+        values (replace(uuid(), '-', ''), #{name}, #{addTime}, #{imageName}, #{category},
+                #{description}, #{price}, #{sales}, #{stock})
+    </insert>
+
+
+</mapper>
