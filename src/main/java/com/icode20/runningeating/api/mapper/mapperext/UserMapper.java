@@ -12,7 +12,7 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> getLimit(int startIndex, int limit);
 
     @Override
-    List<User> searchByKeys(String buler, int startIndex, int limit);
+    List<User> searchByKeys(String bluer, int startIndex, int limit);
 
     @Override
     int bluerCount(String bluer);

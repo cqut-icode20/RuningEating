@@ -56,7 +56,7 @@
     <select id="searchByKeys" resultType="User" resultMap="DbUser">
         select *
         from running_eating.user
-        where username like concat('%', #{buler}, '%')
+        where username like concat('%', #{bluer}, '%')
     </select>
 
 

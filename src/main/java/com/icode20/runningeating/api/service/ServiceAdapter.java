@@ -78,12 +78,12 @@ public abstract class ServiceAdapter<T, M extends BaseMapper<T>, R extends BaseR
             for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 T t = jsonObject.toJavaObject(clazz);
-                builder.append(jsonObject.getString("id"));
                 if (attachMapper().add(t)) {
                     counter++;
                 } else {
                     break;
                 }
+                builder.append(jsonObject.get("userId") == null ? jsonObject.getString("goodId") : jsonObject.get("userId")).append("\n");
             }
             response.body = builder.toString();
             response.message = counter + "个成功";

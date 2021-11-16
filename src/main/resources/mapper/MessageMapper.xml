@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icode20.runningeating.api.mapper.mapperext.MessageMapper">
+    <update id="update">
+        update running_eating.message
+        <set>
+            <if test="title!=null">title=#{title},</if>
+            <if test="imagePath!=null">imagePath=#{imagePath},</if>
+            <if test="sendTo!=null">sendTo=#{sendTo},</if>
+            <if test="content!=null">content=#{content},</if>
+            <if test="from!=null">from=#{from},</if>
+            <if test="date!=null">date=#{date},</if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="delete">
+        delete
+        from running_eating.message
+        where id = #{id}
+    </delete>
+    <!--    用户表结果集映射-->
+    <select id="getAll" resultType="Message">
+        select *
+        from running_eating.message;
+    </select>
+
+    <select id="getLimit" resultType="Message">
+        select *
+        from running_eating.message
+        limit #{startIndex},#{limit}
+    </select>
+
+    <select id="searchByKeys" resultType="Message">
+        select *
+        from running_eating.message
+        where content like concat('%', #{bluer}, '%')
+           or sendTo like concat('%', #{bluer}, '%')
+           or `from` like concat('%', #{bluer}, '%')
+           or title like concat('%', #{bluer}, '%')
+        limit #{startIndex},#{limit}
+    </select>
+
+    <select id="searchById" resultType="Message">
+        select *
+        from running_eating.message
+        where running_eating.message.id = #{id}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*)
+        from running_eating.message
+    </select>
+
+    <select id="bluerCount" resultType="java.lang.Integer">
+        select count(*)
+        from running_eating.message
+        where content like concat('%', #{bluer}, '%')
+           or sendTo like concat('%', #{bluer}, '%')
+           or `from` like concat('%', #{bluer}, '%')
+           or title like concat('%', #{bluer}, '%')
+    </select>
+
+    <insert id="add">
+        insert into running_eating.message(message.id, message.title, message.`from`, message.sendTo,
+                                           message.date, message.messageType,
+                                           message.content, message.imagePath ,message.userId)
+        values (replace(uuid(), '-', ''), #{title}, #{from}, #{sendTo}, #{date},
+                #{messageType}, #{content}, #{imagePath}, #{userId})
+    </insert>
+
+
+</mapper>

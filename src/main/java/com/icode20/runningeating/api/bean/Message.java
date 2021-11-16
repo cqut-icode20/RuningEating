@@ -1,27 +1,27 @@
 package com.icode20.runningeating.api.bean;
 
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
-/**
- * comment
- * @author 
- */
+import java.util.Date;
+
 @Data
-public class Message implements Serializable {
+public class Message {
     private String id;
-
-    private String username;
-
-    private Date time;
-
-    private String goodId;
-
-    private String content;
 
     private String userId;
 
-    private Integer likes;
+    private Boolean messageType;
+
+    private String title;
+
+    private String imagePath;
+
+    private String sendTo;
+
+    private String content;
+
+    private String from;
+
+    private Date date;
 
 }

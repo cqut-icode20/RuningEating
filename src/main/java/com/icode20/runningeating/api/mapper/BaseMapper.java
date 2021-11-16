@@ -49,12 +49,12 @@ public interface BaseMapper<T> {
     int bluerCount(String bluer);
 
     /**
-     * @param buler      关键词搜索
+     * @param bluer      关键词搜索
      * @param startIndex 返回起始索引
      * @param limit   数量
      * @return 返回模糊查询区间结果  会比较多个字段
      */
-    List<T> searchByKeys(String buler, int startIndex, int limit);
+    List<T> searchByKeys(String bluer, int startIndex, int limit);
 
 
     boolean add(T t);
