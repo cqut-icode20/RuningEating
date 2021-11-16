@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icode20.runningeating.api.mapper.mapperext.OrderMapper">
+    <update id="update">
+        update running_eating.order
+        <set>
+            <if test="count!=null">count=#{count},</if>
+            <if test="state!=null">state=#{state},</if>
+            <if test="transportFee!=null">transportFee=#{transportFee},</if>
+            <if test="goodId!=null">goodId=#{goodId},</if>
+            <if test="info!=null">info=#{info},</if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="delete">
+        delete
+        from running_eating.order
+        where id = #{id}
+    </delete>
+
+
+    <!--    用户表结果集映射-->
+    <select id="getAll" resultType="Order" >
+        select *
+        from running_eating.order;
+    </select>
+
+    <select id="getLimit" resultType="Order">
+        select *
+        from running_eating.order
+        limit #{startIndex},#{limit}
+    </select>
+
+    <select id="searchByKeys" resultType="Order">
+        select *
+        from running_eating.order
+        where info like concat('%', #{bluer}, '%')
+        limit #{startIndex},#{limit}
+    </select>
+
+    <select id="searchById" resultType="Order" >
+        select *
+        from running_eating.order
+        where running_eating.order.id = #{id}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*)
+        from running_eating.order
+    </select>
+
+    <select id="bluerCount" resultType="java.lang.Integer">
+        select count(*)
+        from running_eating.order
+        where info like concat('%', #{bluer}, '%')
+    </select>
+
+    <insert id="add">
+        insert into running_eating.order(id, orderCode, count, orderTime, state,
+                                         transportFee, userId, goodId, info)
+        values (replace(uuid(), '-', ''), #{orderCode}, #{count}, #{orderTime}, #{state},
+                #{transportFee}, #{userId}, #{goodId}, #{info})
+    </insert>
+
+
+</mapper>

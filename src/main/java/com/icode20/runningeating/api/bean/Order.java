@@ -1,28 +1,36 @@
 package com.icode20.runningeating.api.bean;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * comment
- * @author 
+ *
+ * @author
  */
 @Data
+@NoArgsConstructor
 public class Order implements Serializable {
     private String id;
 
-    private String username;
+    private String orderCode;
 
-    private Date time;
+    private Integer count;
+
+    private Date orderTime;
+
+    private Integer state;
+
+    private Integer transportFee;
+
+    private String userId;
 
     private String goodId;
 
-    private String content;
+    private Good good;
 
-    private String userid;
-
-    private Integer likes;
-
-    private static final long serialVersionUID = 1L;
+    private String info;
 }

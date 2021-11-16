@@ -44,6 +44,10 @@ public class BaseResponse {
      */
     public String namespace;
 
+    public String getNamespace() {
+        return this.getClass().getSimpleName();
+    }
+
     public String toJsonString() {
         /*
           处理一下status 当是true时转换为成功
